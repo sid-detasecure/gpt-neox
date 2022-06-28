@@ -60,18 +60,18 @@ RUN mv /usr/local/mpi/bin/mpirun /usr/local/mpi/bin/mpirun.real && \
     chmod a+x /usr/local/mpi/bin/mpirun
 
 #### User account
-RUN useradd --create-home --uid 1000 --shell /bin/bash mchorse && \
-    usermod -aG sudo mchorse && \
-    echo "mchorse ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN useradd --create-home --uid 1000 --shell /bin/bash peter && \
+    usermod -aG sudo peter && \
+    echo "peter ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 ## SSH config and bashrc
-RUN mkdir -p /home/mchorse/.ssh /job && \
-    echo 'Host *' > /home/mchorse/.ssh/config && \
-    echo '    StrictHostKeyChecking no' >> /home/mchorse/.ssh/config && \
-    echo 'export PDSH_RCMD_TYPE=ssh' >> /home/mchorse/.bashrc && \
-    echo 'export PATH=/home/mchorse/.local/bin:$PATH' >> /home/mchorse/.bashrc && \
-    echo 'export PATH=/usr/local/mpi/bin:$PATH' >> /home/mchorse/.bashrc && \
-    echo 'export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/mpi/lib:/usr/local/mpi/lib64:$LD_LIBRARY_PATH' >> /home/mchorse/.bashrc
+RUN mkdir -p /home/peter/.ssh /job && \
+    echo 'Host *' > /home/peter/.ssh/config && \
+    echo '    StrictHostKeyChecking no' >> /home/peter/.ssh/config && \
+    echo 'export PDSH_RCMD_TYPE=ssh' >> /home/peter/.bashrc && \
+    echo 'export PATH=/home/peter/.local/bin:$PATH' >> /home/peter/.bashrc && \
+    echo 'export PATH=/usr/local/mpi/bin:$PATH' >> /home/peter/.bashrc && \
+    echo 'export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/mpi/lib:/usr/local/mpi/lib64:$LD_LIBRARY_PATH' >> /home/peter/.bashrc
 
 #### Python packages
 RUN pip install torch==1.8.1+cu111 -f https://download.pytorch.org/whl/torch_stable.html && pip cache purge
@@ -86,6 +86,6 @@ RUN pip install -v --disable-pip-version-check --no-cache-dir --global-option="-
 # Clear staging
 RUN mkdir -p /tmp && chmod 0777 /tmp
 
-#### SWITCH TO mchorse USER
-USER mchorse
-WORKDIR /home/mchorse
+#### SWITCH TO peter USER
+USER peter
+WORKDIR /home/peter
