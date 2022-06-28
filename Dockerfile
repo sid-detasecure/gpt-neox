@@ -89,3 +89,4 @@ RUN mkdir -p /tmp && chmod 0777 /tmp
 #### SWITCH TO peter USER
 USER peter
 WORKDIR /home/peter
+RUN git clone https://github.com/sid-detasecure/gpt-neox.git /home/peter/gpt-neox 
